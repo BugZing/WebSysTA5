@@ -1,0 +1,88 @@
+WEBSYS TA5 - SWIFTPOS (LARAVEL 12 APPLICATION SOURCE)
+
+IMPORTANT: THIS ZIP DOES NOT INCLUDE vendor/.
+It is complete application source, but it cannot run offline immediately after
+extraction. Composer must download Laravel and its dependencies once. Downloads
+were blocked in the authoring environment, so the dependencies could not be
+bundled. This ZIP does not resolve the Packagist connection problem by itself.
+
+EXTRACT
+1. Extract the ZIP's CONTENTS into:
+   C:\Users\Buging\Desktop\ci4_Micutuan\WebSysTA5
+2. The following should be directly inside that folder:
+   artisan, composer.json, Setup.bat, Start-POS.bat, app, bootstrap, config,
+   public, resources, routes, storage.
+3. If WebSysTA5 already contains work you want to keep, back it up first.
+   Avoid creating WebSysTA5\WebSysTA5 by nesting the extracted folder.
+
+FIRST SETUP - A WORKING INTERNET CONNECTION IS REQUIRED
+1. PHP 8.2.12 and Composer from your screenshot are suitable.
+2. Double-click Setup.bat. It installs the dependencies, creates the local
+   application key if missing, and checks route registration and Blade compilation.
+3. If it reports curl error 28, switch to another network/provider and run it again.
+4. Once setup finishes, double-click Start-POS.bat.
+5. Open http://127.0.0.1:8000 in a browser. Keep the server window open.
+
+POWERSHELL ALTERNATIVE
+Set-Location "C:\Users\Buging\Desktop\ci4_Micutuan\WebSysTA5"
+composer install --prefer-dist
+
+Continue only after Composer succeeds. On this new project, run:
+php artisan key:generate
+php artisan config:clear
+php artisan serve
+
+AFTER FIRST SETUP
+Start-POS.bat starts the server again without downloading dependencies.
+No npm build, MySQL server, or database migration is needed for these four pages.
+
+IF YOU NEED AN OFFLINE COPY FOR YOUR COMPUTER
+A trusted computer with working internet and PHP/Composer can run Setup.bat
+(or composer install and php artisan key:generate) on this project first.
+Then copy the ENTIRE folder, including vendor/ and composer.lock, to your PC.
+Do not run composer create-project inside this already-populated project.
+
+PAGES TO VERIFY
+/            Landing page
+/about       About page
+/customers   Five fictional customer records
+/users       Five fictional user records
+
+All four links appear in the shared navigation. Click each link from each page.
+The account views use @foreach, and their data comes from PHP arrays in
+CustomerController and UserController. Static means hardcoded sample data here.
+The default User model is provided for Laravel's auth configuration; the account
+listing uses its controller's array. Authentication and database CRUD are outside
+this activity's scope.
+
+FILES TO EDIT
+routes/web.php
+app/Http/Controllers/PageController.php
+app/Http/Controllers/CustomerController.php
+app/Http/Controllers/UserController.php
+resources/views/layouts/app.blade.php
+resources/views/home.blade.php
+resources/views/about.blade.php
+resources/views/customers/index.blade.php
+resources/views/users/index.blade.php
+
+DEPENDENCY NOTES
+composer.json targets Laravel 12 and resolves dependencies for PHP 8.2.12.
+The first successful installation creates composer.lock and vendor/.
+Keep composer.lock with the project so future installs use the resolved versions.
+.env is preconfigured for local use with file sessions/cache and a sync queue.
+The application key is blank in this source ZIP; Setup.bat generates it locally.
+Database configuration is included for future learning, but no database records
+or tables are required by the four pages.
+
+VERIFICATION STATUS
+Checked source structure, route/view/data references, record counts, environment
+settings, and ZIP integrity. PHP/Composer execution and browser rendering could
+not be tested here because no PHP runtime or dependency downloads were available.
+Setup.bat performs local Artisan checks; verify all four URLs in your browser.
+
+OFFICIAL REFERENCES
+https://laravel.com/docs/12.x/installation
+https://laravel.com/docs/12.x/routing
+https://laravel.com/docs/12.x/blade
+https://getcomposer.org/doc/articles/troubleshooting.md
